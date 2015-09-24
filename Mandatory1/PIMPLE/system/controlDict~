@@ -49,4 +49,28 @@ adjustTimeStep  yes;
 
 maxCo           5;
 
+functions
+{
+    fieldAverage1
+    {
+        type            fieldAverage;
+        functionObjectLibs ("libfieldFunctionObjects.so");
+        enabled         true;
+        outputControl   outputTime;
+
+        fields
+        (
+            U
+            {
+                mean        on;
+            }
+
+            p
+            {
+                mean        on;
+            }
+        );
+    }
+}
+
 // ************************************************************************* //
