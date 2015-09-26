@@ -1,0 +1,64 @@
+\documentclass[a4paper,english,11pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{pstricks}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{preamble}
+\restylefloat{table}
+\renewcommand{\arraystretch}{1.5}
+ \newcommand{\tab}{\hspace*{2em}}
+
+
+\date{\today}
+\title{Mandatory Assignment 1}
+\author{Jørgen D. Tyvand}
+
+\begin{document}
+\maketitle
+\newpage
+
+\section*{1)}
+
+\section*{2)}
+For both the LES and RANS models, we start from the Navier-Stokes equations for incompressible flow:\\
+\\
+$\nabla\cdot (\rho\vec{u}) = 0$\\
+\\
+$\pdi{(\rho u)}{t} + \nabla\cdot(\rho u \vec{u}) = -\pdi{p}{x} + \mu\nabla^2u$\\
+\\
+$\pdi{(\rho v)}{t} + \nabla\cdot(\rho v \vec{u}) = -\pdi{p}{y} + \mu\nabla^2v$\\
+\\
+Lengthy derivations of the LES and RANS equations will not be given, but a short explanation of each will give the general process.\\
+\\
+For Large Eddy Simulation (LES), we use spatial filtering to separate varying sizes of eddies. A cutoff width $\Delta$ is introduced, for which information about eddies smaller than the given width will be ignored/destroyed. A spatial filtering using a filter finction $G(\vec{x},\vec{x}', \Delta)$ is introduced, giving in the following form (3.84 in the book):\\
+\\
+$\ol\phi(\vec{x},t) \equiv \displaystyle\int\limits_{-\infty}^\infty\int\limits_{-\infty}^\infty\int\limits_{-\infty}^\infty\, G(\vec{x},\vec{x}', \Delta)\phi(\vec{x}', t)\mathrm dx_1'\mathrm dx_2'\mathrm dx_3'$\\
+\\
+where $\ol\phi(\vec{x},t)$ and $\phi(\vec{x}, t)$ are the filtered and unfiltered functions respectively. The filter function $G(\vec{x},\vec{x}', \Delta)$ can be given in several ways, but the one used in finite volume implementations is the top-hat/box filter function\\
+\\
+$
+ G(\vec{x},\vec{x}', \Delta) = 
+  \begin{cases} 
+   \frac{1}{\Delta^3} & \abs{\vec{x} - \vec{x}'} \leq \Delta / 2 \\
+   0       & \abs{\vec{x} - \vec{x}'} > \Delta / 2
+  \end{cases}
+$\\
+\\
+Using this filtering on the Navier-Stokes equations, we get the LES momentum equations (the intermediate step from 3.88a-c to 3.89a-c in the book for rewriting the term $\nabla\cdot(\rho\ol{\phi\vec{u}})$ is not shown):\\
+\\
+$\pdi{(\rho \ol{u})}{t} + \nabla\cdot(\rho \ol{u}\, \vec{\ol{u}}) = -\pdi{\ol{p}}{x} + \mu\nabla^2\ol{u} - (\nabla\cdot(\rho \ol{u\vec{u}}) - \nabla\cdot(\rho \ol{u}\, \vec{\ol{u}}))$\\
+\\
+$\pdi{(\rho \ol{v})}{t} + \nabla\cdot(\rho \ol{v}\, \vec{\ol{u}}) = -\pdi{\ol{p}}{y} + \mu\nabla^2\ol{v} - (\nabla\cdot(\rho \ol{v\vec{u}}) - \nabla\cdot(\rho \ol{v}\, \vec{\ol{u}}))$\\
+\\
+\section*{3)}
+\section*{4)}
+\section*{5)}
+Since turbulence is a three-dimensional phenomenon, I would assume that some critical information could be lost using LES as a 2D model. One example could be an eddy with primarily extension in the z-direction, that might have a width below the cutoff value in the x- or y-directions. Thus the impact of this eddy on the mean flow, which might be significant, could potentially be lost by using only a 2D approach.
+ \end{document}
