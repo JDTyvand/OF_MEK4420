@@ -31,7 +31,7 @@ solvers
         mergeLevels     1;
     }
 
-    "(U|k|epsilon|R|nuTilda)"
+    "(U|k|omega|R|nuTilda)"
     {
         solver          smoothSolver;
         smoother        symGaussSeidel;
@@ -62,7 +62,7 @@ relaxationFactors
     {
         U               0.7;
         k               0.7;
-        epsilon         0.7;
+        omega           0.7;
         R               0.7;
         nuTilda         0.7;
     }

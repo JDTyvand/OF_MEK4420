@@ -33,7 +33,7 @@ boundaryField
     walls
     {
         type            epsilonWallFunction;
-        value           uniform 14.855;
+        value           uniform 7.547;
     }
     frontAndBack
     {
