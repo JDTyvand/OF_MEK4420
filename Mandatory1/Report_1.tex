@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{pstricks}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{gensymb}
@@ -74,7 +74,7 @@ filteredLinear\\
 \\
 The following four movie files shows a simulation of these four schemes for 0.5 seconds on the 100 mesh:\\
 \begin{figure}[h!]
-	\includemovie{4cm}{4cm}{animation_piso_10.mp4}
+	\includemovie[poster,]{4cm}{4cm}{animation_piso_10.mp4}
 \end{figure}
 
 The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent.\\
@@ -88,28 +88,71 @@ Here the overline marks the mean terms, and the marked terms are the fluctuation
 For the $k-\epsilon$ model, I have used the value for k that was used in the PitzDaily case. This is because the inlet velocity is the same, and i have assumed that a similar turbulence intensity is appropriate. Analyzing the value for $\epsilon$ in the PitzDaily case, i found that they have used a value of 0.1 times the inlet opening for the turbulent length scale. I have adjusted my value for $\epsilon$ using the same ratio.\\
 \\
 There are two additional equations to be solved for the $k-\epsilon$ model:\\
-Running the $k-epsilon$ case, i have found the following converged solutions for the flow, using the 100 and 200 meshes respectively:\\
 \\
-\newpage
+$\pdi{\rho k}{t} + \nabla\cdot(\rho k \vec{u}) = \frac{\mu_t}{\sigma_k}\nabla^2k + 2\mu_t S_{ij}\cdot S_{ij} - \rho\epsilon$\\
+\\
+$\pdi{\rho \epsilon}{t} + \nabla\cdot(\rho \epsilon \vec{u}) = \frac{\mu_t}{\sigma_{\epsilon}}\nabla^2\epsilon + C_{1\epsilon}\frac{\epsilon}{k}2\mu_t S_{ij}\cdot S_{ij} - C_{2\epsilon}\rho\frac{\epsilon^2}{k}$\\
+\\
+Here, $S_{ij}$ are the components of the mean of the rate of deformation. The constants have the following given values (found both in the book and in other sources):\\
+\\
+$\mu_t = \rho C_{\mu}\frac{k^2}{\epsilon}\tab C_{\mu} = 0.09\tab\sigma_k = 1.00\tab\sigma_{\epsilon} = 1.30\tab C_{1\epsilon} = 1.44\tab C_{2\epsilon} = 1.92$
+\\
+
+Running the $k-\epsilon$ case, i have found the following converged solutions for the flow, using the 100 and 200 meshes respectively:\\
+\\
 The following figures show the mean velocity for the two mesh sizes:\\
 \begin{figure}[h!]
-\includegraphics[scale=0.3]{simple_ke_10_mean_u.png}
-\end{figure}
-\begin{figure}[h!]
-\includegraphics[scale=0.3]{simple_ke_20_mean_u.png}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ke_10_mean_u.png}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ke_20_mean_u.png}
+	\end{subfigure}
 \end{figure}
 \\
 And finally we have the mean kinematic energy:\\
 \begin{figure}[h!]
-\includegraphics[scale=0.3]{simple_ke_10_mean_k.png}
-\end{figure}
-\begin{figure}[h!]
-\includegraphics[scale=0.3]{simple_ke_20_mean_k.png}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ke_10_mean_k.png}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ke_20_mean_k.png}
+	\end{subfigure}
 \end{figure}
 We see that there is virtually no difference between the two cases, so there is little or no mesh sensitivity using simpleFoam for this RANS problem.\\
 \\
-For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega$
+For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega$. We have two additional equations in this model as well:\\
+\\
+$\pdi{\rho k}{t} + \nabla\cdot(\rho k \vec{u}) = (\mu + \frac{\mu_t}{\sigma_k})\nabla^2k + P_k - \beta^*\rho k\omega\tab P_k = \left(2\mu_t S_{ij}\cdot S_{ij} - \frac{2}{3}\rho k\pdi{U_i}{x_j}\delta_{ij}\right)$\\
+\\
+$\pdi{\rho \omega}{t} + \nabla\cdot(\rho \omega \vec{u}) = (\mu + \frac{\mu_t}{\sigma_{\omega}})\nabla^2\omega + \gamma_i\left(2\rho S_{ij}\cdot S_{ij} - \frac{2}{3}\rho \omega\pdi{U_i}{x_j}\delta_{ij}\right) - \beta_1\rho\omega^2$\\
+\\
+With constants\\
+\\
+$\sigma_k = 2.0\tab\sigma_{\omega} = 2.0\tab\gamma_1 = 0.553\tab\beta_1 = 0.075\tab\beta^* = 0.09$\\
+\\
+Running simpleFoam, we get the following plots for the converged values of the mean velocity for the 100 and 200 meshes:\\
+\begin{figure}[h!]
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ko_10_mean_u.png}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ko_20_mean_u.png}
+	\end{subfigure}
+\end{figure}
+\\
+And for the mean kinematic energy:\\
+\begin{figure}[h!]
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ko_10_mean_k.png}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=0.95\linewidth]{simple_ko_20_mean_k.png}
+	\end{subfigure}
+\end{figure}
+\\
 \section*{4)}
 \section*{5)}
+\section*{6)}
 Since turbulence is a three-dimensional phenomenon, I would assume that some critical information could be lost using LES as a 2D model. One example could be an eddy with primarily extension in the z-direction, that might have a width below the cutoff value in the x- or y-directions. Thus the impact of this eddy on the mean flow, which might be significant, could potentially be lost by using only a 2D approach.
  \end{document}
