@@ -26,7 +26,76 @@
 \newpage
 
 \section*{1)}
+(The following description of pisoFoam is largely based on the description given on openfoamwiki.net)\\
+\\
+The basic structure of the piso algorithm as implemented in pisoFoam is as follows:\\
+\\
+$\mathbf{Step 1}$: Boundary conditions are set\\
+\\
+$\mathbf{Step 2}$: The discretized momentum equation is defined and solved:\\
+\begin{lstlisting}[style=python]
+fvVectorMatrix UEqn
+            (
+                fvm::ddt(U)
+              + fvm::div(phi, U)
+              + turbulence->divDevReff(U)
+            );
+\end{lstlisting}
+This equation differs in my version of OpenFoam from the one given for pisoFoam at openfoamwiki.net and Chalmers in the final term, where the other sources gives\\
+\begin{lstlisting}[style=python]
+ fvVectorMatrix UEqn
+ (
+   	fvm::ddt(U)
+      + fvm::div(phi, U)
+      - fvm::laplacian(nu,Step 2 U)
+ );
+\end{lstlisting}
+The final term in my version, as i understand, is a combination of a laplacian and the divergence of the deviatoric  (the deviatoric being the difference between the Cauchy stress tensor and the hydrostatic stress tensor)
+\begin{lstlisting}[style=python]
+divDevReff(U) =
+- fvm::laplacian(nuEff(), U)
+- fvc::div(nuEff()*dev(fvc::grad(U)().T())) 
+\end{lstlisting}
+We then solve the equation
+\begin{lstlisting}[style=python]
+solve(UEqn == -fvc::grad(p));
+\end{lstlisting}
+$\mathbf{Step 3}$: The piso loop then starts, begining with calculating the coefficients and the flux
+\begin{lstlisting}[style=python]
+ volScalarField rAU(1.0/UEqn.A());
 
+volVectorField HbyA("HbyA", U);
+HbyA = rAU*UEqn.H();
+surfaceScalarField phiHbyA
+ (
+          "phiHbyA",
+           (fvc::interpolate(HbyA) & mesh.Sf())
+            + fvc::interpolate(rAU)*fvc::ddtCorr(U, phi)
+);
+
+adjustPhi(phiHbyA, U, p);
+\end{lstlisting}
+$\mathbf{Step 4}$: The pressure equation is solved
+\begin{lstlisting}[style=python]
+fvScalarMatrix pEqn
+ (
+     fvm::laplacian(rAU, p) == fvc::div(phiHbyA)
+ );
+
+pEqn.setReference(pRefCell, pRefValue);
+\end{lstlisting}
+In this case, the nNonOrthCorr is set to 0, so there are no non-orthogonal pressure corrections.\\
+\\
+$\mathbf{Step 5}$: The velocites and boundary conditions are corrected
+\begin{lstlisting}[style=python]
+ U = HbyA - rAU*fvc::grad(p);
+U.correctBoundaryConditions();
+\end{lstlisting}
+$\mathbf{Step 6}$: The loop is repeated the number of times given by nCorrectors in the fvSolution file.\\
+\\
+\.
+\\
+$\mathbf{Step 7}$: The time step is increased and the process starts again from step 1.
 \section*{2)}
 For both the LES and RANS models, we start from the Navier-Stokes equations for incompressible flow:\\
 \\
@@ -74,7 +143,22 @@ filteredLinear\\
 \\
 The following four movie files shows a simulation of these four schemes for 0.5 seconds on the 100 mesh:\\
 \begin{figure}[h!]
-	\includemovie[poster,]{4cm}{4cm}{animation_piso_10.mp4}
+	\begin{subfigure}{0.2\textwidth}
+		\includemovie[poster,]{4cm}{4cm}{animation_piso_10.mp4}
+		\caption{$\mathbf{linear}$}
+ 	\end{subfigure}
+	\begin{subfigure}{0.2\textwidth}
+		\includemovie[poster,]{4cm}{4cm}{animation_piso_10_upwind.mp4}
+		\caption{$\mathbf{upwind}$}
+ 	\end{subfigure}
+	\begin{subfigure}{0.2\textwidth}
+		\includemovie[poster,]{4cm}{4cm}{animation_piso_10_linear_upwind.mp4}
+		\caption{$\mathbf{upwindLinear}$}
+ 	\end{subfigure}
+	\begin{subfigure}{0.2\textwidth}
+		\includemovie[poster,]{4cm}{4cm}{animation_piso_10_filteredLinear.mp4}
+		\caption{$\mathbf{filteredLinear}$}
+ 	\end{subfigure}
 \end{figure}
 
 The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent.\\
