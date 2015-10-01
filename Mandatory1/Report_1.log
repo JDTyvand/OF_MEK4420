@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.6.10)  1 OCT 2015 18:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.6.10)  1 OCT 2015 18:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1126,4 +1126,462 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--36
 
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 36.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX 
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 88--91
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--142
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[3]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[4]
+Overfull \hbox (29.00026pt too wide) in paragraph at lines 146--147
+[][][][][][] 
+ []
+
+
+Overfull \hbox (29.00026pt too wide) in paragraph at lines 150--151
+[][][][][][] 
+ []
+
+
+Overfull \hbox (29.00026pt too wide) in paragraph at lines 154--155
+[][][][][][] 
+ []
+
+
+Overfull \hbox (29.00026pt too wide) in paragraph at lines 158--159
+[][][][][][] 
+ []
+
+
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 165--173
+[]$[]$ $[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--176
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[5<<animation_piso_10.mp4>><<animation_piso_10_upwind.mp4>><<animation_piso_10_
+linear_upwind.mp4>><<animation_piso_10_filteredLinear.mp4>><<animation_piso_20_
+filteredLinear.mp4>><<animation_piso_25_filteredLinear.mp4>>]
+<piso_10_filteredLinear_mean_u.png, id=149, 848.16875pt x 473.77pt>
+File: piso_10_filteredLinear_mean_u.png Graphic file (type png)
+
+<use piso_10_filteredLinear_mean_u.png>
+Package pdftex.def Info: piso_10_filteredLinear_mean_u.png used on input line 1
+80.
+(pdftex.def)             Requested size: 120.85803pt x 67.50569pt.
+
+<piso_20_filteredLinear_mean_u.png, id=150, 848.16875pt x 473.77pt>
+File: piso_20_filteredLinear_mean_u.png Graphic file (type png)
+
+<use piso_20_filteredLinear_mean_u.png>
+Package pdftex.def Info: piso_20_filteredLinear_mean_u.png used on input line 1
+84.
+(pdftex.def)             Requested size: 120.85803pt x 67.50569pt.
+
+<piso_25_filteredLinear_mean_u.png, id=151, 848.16875pt x 473.77pt>
+File: piso_25_filteredLinear_mean_u.png Graphic file (type png)
+
+<use piso_25_filteredLinear_mean_u.png>
+Package pdftex.def Info: piso_25_filteredLinear_mean_u.png used on input line 1
+88.
+(pdftex.def)             Requested size: 120.85803pt x 67.50569pt.
+
+<piso_10_filteredLinear_mean_p.png, id=152, 848.16875pt x 473.77pt>
+File: piso_10_filteredLinear_mean_p.png Graphic file (type png)
+
+<use piso_10_filteredLinear_mean_p.png>
+Package pdftex.def Info: piso_10_filteredLinear_mean_p.png used on input line 1
+94.
+(pdftex.def)             Requested size: 120.85803pt x 67.50569pt.
+
+<piso_20_filteredLinear_mean_p.png, id=153, 848.16875pt x 473.77pt>
+File: piso_20_filteredLinear_mean_p.png Graphic file (type png)
+
+<use piso_20_filteredLinear_mean_p.png>
+Package pdftex.def Info: piso_20_filteredLinear_mean_p.png used on input line 1
+98.
+(pdftex.def)             Requested size: 120.85803pt x 67.50569pt.
+
+<piso_25_filteredLinear_mean_p.png, id=154, 848.16875pt x 473.77pt>
+File: piso_25_filteredLinear_mean_p.png Graphic file (type png)
+
+<use piso_25_filteredLinear_mean_p.png>
+Package pdftex.def Info: piso_25_filteredLinear_mean_p.png used on input line 2
+02.
+(pdftex.def)             Requested size: 120.85803pt x 67.50569pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--225
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[6 <./piso_10_filteredLinear_mean_u.png (PNG copy)> <./piso_20_filteredLinear_m
+ean_u.png (PNG copy)> <./piso_25_filteredLinear_mean_u.png (PNG copy)> <./piso_
+10_filteredLinear_mean_p.png (PNG copy)> <./piso_20_filteredLinear_mean_p.png (
+PNG copy)> <./piso_25_filteredLinear_mean_p.png (PNG copy)>]
+<simple_ke_10_mean_u.png, id=163, 848.16875pt x 473.77pt>
+File: simple_ke_10_mean_u.png Graphic file (type png)
+
+<use simple_ke_10_mean_u.png>
+Package pdftex.def Info: simple_ke_10_mean_u.png used on input line 242.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+<simple_ke_20_mean_u.png, id=164, 848.16875pt x 473.77pt>
+File: simple_ke_20_mean_u.png Graphic file (type png)
+
+<use simple_ke_20_mean_u.png>
+Package pdftex.def Info: simple_ke_20_mean_u.png used on input line 246.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 241--249
+[]$[]$ $[]$ 
+ []
+
+<simple_ke_10_mean_k.png, id=165, 848.16875pt x 473.77pt>
+File: simple_ke_10_mean_k.png Graphic file (type png)
+
+<use simple_ke_10_mean_k.png>
+Package pdftex.def Info: simple_ke_10_mean_k.png used on input line 254.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+<simple_ke_20_mean_k.png, id=166, 848.16875pt x 473.77pt>
+File: simple_ke_20_mean_k.png Graphic file (type png)
+
+<use simple_ke_20_mean_k.png>
+Package pdftex.def Info: simple_ke_20_mean_k.png used on input line 258.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 253--261
+[]$[]$ $[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--264
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[7 <./simple_ke_10_mean_u.png (PNG copy)> <./simple_ke_20_mean_u.png (PNG copy)
+> <./simple_ke_10_mean_k.png (PNG copy)> <./simple_ke_20_mean_k.png (PNG copy)>
+] <simple_ko_10_mean_u.png, id=175, 848.16875pt x 473.77pt>
+File: simple_ko_10_mean_u.png Graphic file (type png)
+
+<use simple_ko_10_mean_u.png>
+Package pdftex.def Info: simple_ko_10_mean_u.png used on input line 278.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+<simple_ko_20_mean_u.png, id=176, 848.16875pt x 473.77pt>
+File: simple_ko_20_mean_u.png Graphic file (type png)
+
+<use simple_ko_20_mean_u.png>
+Package pdftex.def Info: simple_ko_20_mean_u.png used on input line 282.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 277--285
+[]$[]$ $[]$ 
+ []
+
+<simple_ko_10_mean_k.png, id=177, 848.16875pt x 473.77pt>
+File: simple_ko_10_mean_k.png Graphic file (type png)
+
+<use simple_ko_10_mean_k.png>
+Package pdftex.def Info: simple_ko_10_mean_k.png used on input line 290.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+<simple_ko_20_mean_k.png, id=178, 848.16875pt x 473.77pt>
+File: simple_ko_20_mean_k.png Graphic file (type png)
+
+<use simple_ko_20_mean_k.png>
+Package pdftex.def Info: simple_ko_20_mean_k.png used on input line 294.
+(pdftex.def)             Requested size: 201.42801pt x 112.51431pt.
+
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 289--297
+[]$[]$ $[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--299
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--299
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--299
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--299
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--299
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--299
+
+ []
+
+
+Package movie15 Warning: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+(movie15)                @@ Package `movie15' is obsolete and @@
+(movie15)                @@ superseded by `media9'.           @@
+(movie15)                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 304.
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[8 <./simple_ko_10_mean_u.png (PNG copy)> <./simple_ko_20_mean_u.png (PNG copy)
+> <./simple_ko_10_mean_k.png (PNG copy)> <./simple_ko_20_mean_k.png (PNG copy)>
+]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[9]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 304.
+ (./Report_1.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 304.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 304.
+Package rerunfilecheck Info: File `Report_1.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 304.
+ ) 
+Here is how much of TeX's memory you used:
+ 15218 strings out of 495028
+ 225124 string characters out of 6181497
+ 398764 words of memory out of 5000000
+ 18072 multiletter control sequences out of 15000+600000
+ 21366 words of font info for 67 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 59i,11n,97p,627b,1297s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/fenics/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/
+fenics/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/fenics/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/fenics/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/fenics/.texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecrm1095.600pk> </home/fenics/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecrm1200.600pk> </home/fenics/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
+1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy8.pfb>
+Output written on Report_1.pdf (9 pages, 11496719 bytes).
+PDF statistics:
+ 450 PDF objects out of 1000 (max. 8388607)
+ 221 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 263 words of extra memory for PDF output out of 10000 (max. 10000000)
+
