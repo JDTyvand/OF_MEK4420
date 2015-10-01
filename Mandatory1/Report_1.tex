@@ -160,7 +160,17 @@ The following four movie files shows a simulation of these four schemes for 0.5 
  	\end{subfigure}
 \end{figure}
 
-The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent.\\
+The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent\\
+\begin{figure}[h!]
+	\begin{subfigure}{0.2\textwidth}
+		\includemovie[poster,]{4cm}{4cm}{animation_piso_20_filteredLinear.mp4}
+		\caption{$\mathbf{filteredLinear, 200-mesh}$}
+ 	\end{subfigure}
+	\begin{subfigure}{0.2\textwidth}
+		\includemovie[poster,]{4cm}{4cm}{animation_piso_25_filteredLinear.mp4}
+		\caption{$\mathbf{filteredLinear, 250-mesh}$}
+ 	\end{subfigure}
+\end{figure}
 \\
 I also found that the solver crashed if i used a too fine mesh with a too coarse time step. In the final calculations i have used timesteps of $1.0*10^{-5}$, but with a timestep of $1.0*10^{-4}$ the Courant number grew to between 1.5 and 2, at which the calculations crashed. This implies grid sensitivity with respect to grid size and time step size.
 
@@ -220,8 +230,8 @@ And finally we have the mean kinematic energy:\\
 \end{figure}
 \\
 We see that there is just a slight difference between the two cases, so there is little or no mesh sensitivity using simpleFoam for this RANS problem.\\
-\\
-For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega$. We have two additional equations in this model as well:\\
+\newpage
+For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega = 20.125$. We have two additional equations in this model as well:\\
 \\
 $\pdi{\rho k}{t} + \nabla\cdot(\rho k \vec{u}) = (\mu + \frac{\mu_t}{\sigma_k})\nabla^2k + P_k - \beta^*\rho k\omega\tab P_k = \left(2\mu_t S_{ij}\cdot S_{ij} - \frac{2}{3}\rho k\pdi{U_i}{x_j}\delta_{ij}\right)$\\
 \\
@@ -256,6 +266,7 @@ And for the mean kinematic energy:\\
 \end{figure}
 \\
 \section*{4)}
+Since pimpleFoam is a large time-step solver, i would assume that some of the eddy information would be lost in a LES model if the pimpleFoam solver incorporates time step adjustments as I have found to appear in some of the pimpleFoam tutorial cases' controlDict files. As some of the eddies appear, travel and dissapear in very short amounts of time, this might not be picked up by the solver using larger than needed time steps.
 \section*{5)}
 \section*{6)}
 Since turbulence is a three-dimensional phenomenon.
