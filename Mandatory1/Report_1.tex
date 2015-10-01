@@ -305,21 +305,23 @@ And for the mean kinematic energy:\\
 Since pimpleFoam is a large time-step solver, i would assume that some of the eddy information would be lost in a LES model if the pimpleFoam solver incorporates time step adjustments as I have found to appear in some of the pimpleFoam tutorial cases' controlDict files. As some of the eddies appear, travel and dissapear in very short amounts of time, this might not be picked up by the solver using larger than needed time steps.
 \section*{5)}
 To compare the results from the LES and RANS calculations, i have plotted the streamlines at the last time step (0.5 s) for the 200-mesh solution for the $k-\epsilon$ and $k-\omega$ cases, as well as for the 250-mesh solution for the filteredLinear LES simulation\\
-\\
+\newpage
 \begin{figure}[h!]
-	\begin{subfigure}{0.3\linewidth}
-		\includegraphics[width=0.95\linewidth]{simple_ke_20_streamlines.png}
-		\caption{$\mathbf{k-\epsilon}$}
-	\end{subfigure}
-	\begin{subfigure}{0.3\linewidth}
-		\includegraphics[width=0.95\linewidth]{simple_ko_20_streamlines.png}
-		\caption{$\mathbf{k-\epsilon}$}
-	\end{subfigure}
-	\begin{subfigure}{0.3\linewidth}
-		\includegraphics[width=0.95\linewidth]{piso_25_filteredLinear_streamlines.png}
-		\caption{$\mathbf{piso}$}
-	\end{subfigure}
-\end{figure}\\
+	\centering
+	\includegraphics[scale=0.35]{simple_ke_20_streamlines.png}
+	\caption{$\mathbf{k-\epsilon}$}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.35]{simple_ko_20_streamlines.png}
+	\caption{$\mathbf{k-\epsilon}$}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.35]{piso_25_filteredLinear_streamlines.png}
+	\caption{$\mathbf{piso}$}
+\end{figure}
+\newpage
 We can see that the location of the recirculation bubble is roughly the same for all three cases, but the bubble is longer for the$k-\epsilon$ than the $k-\omega$. The location in the LES case shifts through time (as can be seen in the above videos), as well as the generated "bubble" letting go and reappearing several times during the simulation. 
 \section*{6)}
 Since turbulence (and thus the resulting eddies) is a three-dimensional phenomenon, i would guess that problems will arise in 2D LES modeling for correct simulation of the movement, diffusion and appearance/disappearance of the eddies. As we can see in the movies above, the eddies continue throughout the flow, but one would assume that they would die off as they move downwind. If this is due to missing smaller eddies for the energy to cascade down to, or if they are cut of by the filtering, i have no clear answer for.
