@@ -35,19 +35,19 @@ $\mathbf{Step 1}$: Boundary conditions are set\\
 $\mathbf{Step 2}$: The discretized momentum equation is defined and solved:\\
 \begin{lstlisting}[style=python]
 fvVectorMatrix UEqn
-            (
-                fvm::ddt(U)
-              + fvm::div(phi, U)
-              + turbulence->divDevReff(U)
-            );
+(
+   fvm::ddt(U)
+   + fvm::div(phi, U)
+   + turbulence->divDevReff(U)
+ );
 \end{lstlisting}
 This equation differs in my version of OpenFoam from the one given for pisoFoam at openfoamwiki.net and Chalmers in the final term, where the other sources gives\\
 \begin{lstlisting}[style=python]
  fvVectorMatrix UEqn
  (
-   	fvm::ddt(U)
-      + fvm::div(phi, U)
-      - fvm::laplacian(nu,Step 2 U)
+   fvm::ddt(U)
+   + fvm::div(phi, U)
+   - fvm::laplacian(nu,Step 2 U)
  );
 \end{lstlisting}
 The final term in my version, as i understand, is a combination of a laplacian and the divergence of the deviatoric  (the deviatoric being the difference between the Cauchy stress tensor and the hydrostatic stress tensor)
@@ -60,6 +60,7 @@ We then solve the equation
 \begin{lstlisting}[style=python]
 solve(UEqn == -fvc::grad(p));
 \end{lstlisting}
+\newpage
 $\mathbf{Step 3}$: The piso loop then starts, begining with calculating the coefficients and the flux
 \begin{lstlisting}[style=python]
  volScalarField rAU(1.0/UEqn.A());
@@ -68,9 +69,9 @@ volVectorField HbyA("HbyA", U);
 HbyA = rAU*UEqn.H();
 surfaceScalarField phiHbyA
  (
-          "phiHbyA",
-           (fvc::interpolate(HbyA) & mesh.Sf())
-            + fvc::interpolate(rAU)*fvc::ddtCorr(U, phi)
+   "phiHbyA",
+   (fvc::interpolate(HbyA) & mesh.Sf())
+   + fvc::interpolate(rAU)*fvc::ddtCorr(U, phi)
 );
 
 adjustPhi(phiHbyA, U, p);
@@ -79,7 +80,7 @@ $\mathbf{Step 4}$: The pressure equation is solved
 \begin{lstlisting}[style=python]
 fvScalarMatrix pEqn
  (
-     fvm::laplacian(rAU, p) == fvc::div(phiHbyA)
+   fvm::laplacian(rAU, p) == fvc::div(phiHbyA)
  );
 
 pEqn.setReference(pRefCell, pRefValue);
@@ -92,8 +93,6 @@ $\mathbf{Step 5}$: The velocites and boundary conditions are corrected
 U.correctBoundaryConditions();
 \end{lstlisting}
 $\mathbf{Step 6}$: The loop is repeated the number of times given by nCorrectors in the fvSolution file.\\
-\\
-\.
 \\
 $\mathbf{Step 7}$: The time step is increased and the process starts again from step 1.
 \section*{2)}
@@ -140,7 +139,7 @@ Non-upwind linear (as found in the unaltered PitzDaily files)\\
 upwind\\
 linearUpwind\\
 filteredLinear\\
-\\
+\newpage
 The following four movie files shows a simulation of these four schemes for 0.5 seconds on the 100 mesh:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.2\textwidth}
@@ -164,13 +163,25 @@ The following four movie files shows a simulation of these four schemes for 0.5 
 The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent.\\
 \\
 I also found that the solver crashed if i used a too fine mesh with a too coarse time step. In the final calculations i have used timesteps of $1.0*10^{-5}$, but with a timestep of $1.0*10^{-4}$ the Courant number grew to between 1.5 and 2, at which the calculations crashed. This implies grid sensitivity with respect to grid size and time step size.
+
 \section*{3)}
 For the RANS models i have chosen to use the simpleFoam solver for the $k-\epsilon$ and $k-\omega$ models. The general RANS equations are as follows:\\
 \\
-Here the overline marks the mean terms, and the marked terms are the fluctuation terms.\\
+$\nabla\cdot\vec{\ol{u}} = 0$\\
 \\
-For the $k-\epsilon$ model, I have used the value for k that was used in the PitzDaily case. This is because the inlet velocity is the same, and i have assumed that a similar turbulence intensity is appropriate. Analyzing the value for $\epsilon$ in the PitzDaily case, i found that they have used a value of 0.1 times the inlet opening for the turbulent length scale. I have adjusted my value for $\epsilon$ using the same ratio.\\
+$\pdi{\ol{u}}{t} + \nabla\cdot(\ol{u}\vec{\ol{u}}) = -\frac{1}{\rho}\pdi{\ol{p}}{x} + \nu\nabla^2\ol{u} + \frac{1}{\rho}\left[\pdi{(-\rho\ol{u'^2})}{x} + \pdi{(-\rho\ol{u'v'})}{y} + \pdi{(-\rho\ol{u'w'})}{z}\right]$
 \\
+\\
+$\pdi{\ol{v}}{t} + \nabla\cdot(\ol{v}\vec{\ol{u}}) = -\frac{1}{\rho}\pdi{\ol{p}}{y} + \nu\nabla^2\ol{v} + \frac{1}{\rho}\left[\pdi{(-\rho\ol{u'v'})}{x} + \pdi{(-\rho\ol{v'^2})}{y} + \pdi{(-\rho\ol{v'w'})}{z}\right]$
+\\
+\\
+$\pdi{\ol{w}}{t} + \nabla\cdot(\ol{w}\vec{\ol{u}}) = -\frac{1}{\rho}\pdi{\ol{p}}{z} + \nu\nabla^2\ol{w} + \frac{1}{\rho}\left[\pdi{(-\rho\ol{u'w'})}{x} + \pdi{(-\rho\ol{v'w'})}{y} + \pdi{(-\rho\ol{w'^2})}{z}\right]$
+\\
+\\
+Here the overline marks the mean terms, and the marked terms are the fluctuation terms. The last bracketed terms in each equation contain the so called Reynolds stresses.\\
+\\
+For the $k-\epsilon$ model, I have used the value for k that was used in the PitzDaily case, $k = 0.375$. This is because the inlet velocity is the same, and i have assumed that a similar turbulence intensity is appropriate. Analyzing the value for $\epsilon$ in the PitzDaily case, i found that they have used a value of 0.1 times the inlet opening for the turbulent length scale. I have adjusted my value for $\epsilon$ using the same ratio, giving $\epsilon = 7.547$.\\
+\newpage
 There are two additional equations to be solved for the $k-\epsilon$ model:\\
 \\
 $\pdi{\rho k}{t} + \nabla\cdot(\rho k \vec{u}) = \frac{\mu_t}{\sigma_k}\nabla^2k + 2\mu_t S_{ij}\cdot S_{ij} - \rho\epsilon$\\
@@ -181,16 +192,18 @@ Here, $S_{ij}$ are the components of the mean of the rate of deformation. The co
 \\
 $\mu_t = \rho C_{\mu}\frac{k^2}{\epsilon}\tab C_{\mu} = 0.09\tab\sigma_k = 1.00\tab\sigma_{\epsilon} = 1.30\tab C_{1\epsilon} = 1.44\tab C_{2\epsilon} = 1.92$
 \\
-
+\\
 Running the $k-\epsilon$ case, i have found the following converged solutions for the flow, using the 100 and 200 meshes respectively:\\
 \\
 The following figures show the mean velocity for the two mesh sizes:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_10_mean_u.png}
+		\caption{$\mathbf{ 100-mesh, k-\epsilon}$}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_20_mean_u.png}
+		\caption{$\mathbf{ 200-mesh, k-\epsilon}$}
 	\end{subfigure}
 \end{figure}
 \\
@@ -198,12 +211,15 @@ And finally we have the mean kinematic energy:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_10_mean_k.png}
+		\caption{$\mathbf{ 100-mesh, k-\omega}$}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_20_mean_k.png}
+		\caption{$\mathbf{ 200-mesh, k-\omega}$}
 	\end{subfigure}
 \end{figure}
-We see that there is virtually no difference between the two cases, so there is little or no mesh sensitivity using simpleFoam for this RANS problem.\\
+\\
+We see that there is just a slight difference between the two cases, so there is little or no mesh sensitivity using simpleFoam for this RANS problem.\\
 \\
 For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega$. We have two additional equations in this model as well:\\
 \\
@@ -219,9 +235,11 @@ Running simpleFoam, we get the following plots for the converged values of the m
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ko_10_mean_u.png}
+		\caption{$\mathbf{ 100-mesh, k-\epsilon}$}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ko_20_mean_u.png}
+		\caption{$\mathbf{ 200-mesh, k-\epsilon}$}
 	\end{subfigure}
 \end{figure}
 \\
@@ -229,14 +247,16 @@ And for the mean kinematic energy:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ko_10_mean_k.png}
+		\caption{$\mathbf{ 100-mesh, k-\omega}$}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ko_20_mean_k.png}
+		\caption{$\mathbf{ 200-mesh, k-\omega}$}
 	\end{subfigure}
 \end{figure}
 \\
 \section*{4)}
 \section*{5)}
 \section*{6)}
-Since turbulence is a three-dimensional phenomenon, I would assume that some critical information could be lost using LES as a 2D model. One example could be an eddy with primarily extension in the z-direction, that might have a width below the cutoff value in the x- or y-directions. Thus the impact of this eddy on the mean flow, which might be significant, could potentially be lost by using only a 2D approach.
+Since turbulence is a three-dimensional phenomenon.
  \end{document}
