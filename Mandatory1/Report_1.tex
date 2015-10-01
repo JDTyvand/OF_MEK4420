@@ -11,6 +11,7 @@
 \usepackage{float}
 \usepackage{gensymb}
 \usepackage{preamble}
+\usepackage{movie15}
 \restylefloat{table}
 \renewcommand{\arraystretch}{1.5}
  \newcommand{\tab}{\hspace*{2em}}
@@ -57,7 +58,57 @@ $\pdi{(\rho \ol{u})}{t} + \nabla\cdot(\rho \ol{u}\, \vec{\ol{u}}) = -\pdi{\ol{p}
 \\
 $\pdi{(\rho \ol{v})}{t} + \nabla\cdot(\rho \ol{v}\, \vec{\ol{u}}) = -\pdi{\ol{p}}{y} + \mu\nabla^2\ol{v} - (\nabla\cdot(\rho \ol{v\vec{u}}) - \nabla\cdot(\rho \ol{v}\, \vec{\ol{u}}))$\\
 \\
+The boundary conditions for the LES problem is as following:\\
+\\
+Uniform velocity of 10 m/s in the x-direction at the inlet\\
+Zero velocity gradient at the walls and outlet\\
+Zero pressure gradient at the walls and inlet\\
+A uniform value of 0 for the pressure at the outlet\\
+\\
+For the simulations i have used 2 different mesh refinements, one with 10x20 cells for the inlet and outlet boxes and 100x20 for the center boxes, as well as a doubled mesh of 20x40 and 200x40 boxes. The case files were originally copied from the PitzDaily case for incompressible flow with PISO, and edited from there. For the convection term i have tested different upwind schemes, and landed on filteredLinear. An upwind scheme will include more information from upwind cells, and therefore (hopefully) give a more correct and stable calculation. I have tested the following 4 schemes for the coarsest mesh:\\
+\\
+Non-upwind linear (as found in the unaltered PitzDaily files)\\
+upwind\\
+linearUpwind\\
+filteredLinear\\
+\\
+The following four movie files shows a simulation of these four schemes for 0.5 seconds on the 100 mesh:\\
+\begin{figure}[h!]
+	\includemovie{4cm}{4cm}{animation_piso_10.mp4}
+\end{figure}
+
+The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent.\\
+\\
+I also found that the solver crashed if i used a too fine mesh with a too coarse time step. In the final calculations i have used timesteps of $1.0*10^{-5}$, but with a timestep of $1.0*10^{-4}$ the Courant number grew to between 1.5 and 2, at which the calculations crashed. This implies grid sensitivity with respect to grid size and time step size.
 \section*{3)}
+For the RANS models i have chosen to use the simpleFoam solver for the $k-\epsilon$ and $k-\omega$ models. The general RANS equations are as follows:\\
+\\
+Here the overline marks the mean terms, and the marked terms are the fluctuation terms.\\
+\\
+For the $k-\epsilon$ model, I have used the value for k that was used in the PitzDaily case. This is because the inlet velocity is the same, and i have assumed that a similar turbulence intensity is appropriate. Analyzing the value for $\epsilon$ in the PitzDaily case, i found that they have used a value of 0.1 times the inlet opening for the turbulent length scale. I have adjusted my value for $\epsilon$ using the same ratio.\\
+\\
+There are two additional equations to be solved for the $k-\epsilon$ model:\\
+Running the $k-epsilon$ case, i have found the following converged solutions for the flow, using the 100 and 200 meshes respectively:\\
+\\
+\newpage
+The following figures show the mean velocity for the two mesh sizes:\\
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{simple_ke_10_mean_u.png}
+\end{figure}
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{simple_ke_20_mean_u.png}
+\end{figure}
+\\
+And finally we have the mean kinematic energy:\\
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{simple_ke_10_mean_k.png}
+\end{figure}
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{simple_ke_20_mean_k.png}
+\end{figure}
+We see that there is virtually no difference between the two cases, so there is little or no mesh sensitivity using simpleFoam for this RANS problem.\\
+\\
+For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega$
 \section*{4)}
 \section*{5)}
 Since turbulence is a three-dimensional phenomenon, I would assume that some critical information could be lost using LES as a 2D model. One example could be an eddy with primarily extension in the z-direction, that might have a width below the cutoff value in the x- or y-directions. Thus the impact of this eddy on the mean flow, which might be significant, could potentially be lost by using only a 2D approach.
