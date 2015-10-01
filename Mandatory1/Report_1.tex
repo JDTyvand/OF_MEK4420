@@ -1,7 +1,7 @@
-\documentclass[a4paper,english,11pt,twoside]{article}
+\documentclass[a4paper,english,12pt,twoside]{article}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -41,7 +41,7 @@ fvVectorMatrix UEqn
    + turbulence->divDevReff(U)
  );
 \end{lstlisting}
-This equation differs in my version of OpenFoam from the one given for pisoFoam at openfoamwiki.net and Chalmers in the final term, where the other sources gives\\
+This equation differs in my version of OpenFoam from the one given for pisoFoam at openfoamwiki.net and Chalmers, in the final term, where the other sources gives\\
 \begin{lstlisting}[style=python]
  fvVectorMatrix UEqn
  (
@@ -61,7 +61,7 @@ We then solve the equation
 solve(UEqn == -fvc::grad(p));
 \end{lstlisting}
 \newpage
-$\mathbf{Step 3}$: The piso loop then starts, begining with calculating the coefficients and the flux
+$\mathbf{Step 3}$: The piso loop then starts, beginning with calculating the coefficients and the flux
 \begin{lstlisting}[style=python]
  volScalarField rAU(1.0/UEqn.A());
 
@@ -95,6 +95,8 @@ U.correctBoundaryConditions();
 $\mathbf{Step 6}$: The loop is repeated the number of times given by nCorrectors in the fvSolution file.\\
 \\
 $\mathbf{Step 7}$: The time step is increased and the process starts again from step 1.
+
+\newpage
 \section*{2)}
 For both the LES and RANS models, we start from the Navier-Stokes equations for incompressible flow:\\
 \\
@@ -126,21 +128,22 @@ $\pdi{(\rho \ol{u})}{t} + \nabla\cdot(\rho \ol{u}\, \vec{\ol{u}}) = -\pdi{\ol{p}
 \\
 $\pdi{(\rho \ol{v})}{t} + \nabla\cdot(\rho \ol{v}\, \vec{\ol{u}}) = -\pdi{\ol{p}}{y} + \mu\nabla^2\ol{v} - (\nabla\cdot(\rho \ol{v\vec{u}}) - \nabla\cdot(\rho \ol{v}\, \vec{\ol{u}}))$\\
 \\
-The boundary conditions for the LES problem is as following:\\
+The boundary conditions for the LES problem are as follows:\\
 \\
-Uniform velocity of 10 m/s in the x-direction at the inlet\\
-Zero velocity gradient at the walls and outlet\\
-Zero pressure gradient at the walls and inlet\\
-A uniform value of 0 for the pressure at the outlet\\
-\\
+-Uniform velocity of 10 m/s in the x-direction at the inlet\\
+-Zero velocity gradient at the walls and outlet\\
+-Zero pressure gradient at the walls and inlet\\
+-A uniform value of 0 for the pressure at the outlet\\
+
+\newpage
 For the simulations i have used 2 different mesh refinements, one with 10x20 cells for the inlet and outlet boxes and 100x20 for the center boxes, as well as a doubled mesh of 20x40 and 200x40 boxes. The case files were originally copied from the PitzDaily case for incompressible flow with PISO, and edited from there. For the convection term i have tested different upwind schemes, and landed on filteredLinear. An upwind scheme will include more information from upwind cells, and therefore (hopefully) give a more correct and stable calculation. I have tested the following 4 schemes for the coarsest mesh:\\
 \\
 Non-upwind linear (as found in the unaltered PitzDaily files)\\
 upwind\\
 linearUpwind\\
 filteredLinear\\
-\newpage
-The following four movie files shows a simulation of these four schemes for 0.5 seconds on the 100 mesh:\\
+\\
+The following four movie files shows a simulation of these four schemes for 0.5 seconds on the 100-mesh:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.2\textwidth}
 		\includemovie[poster,]{4cm}{4cm}{animation_piso_10.mp4}
@@ -160,7 +163,7 @@ The following four movie files shows a simulation of these four schemes for 0.5 
  	\end{subfigure}
 \end{figure}
 
-The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are mot mesh independent\\
+The filteredLinear scheme has also been used for the 200 mesh, as well as a even finer mesh of 250x50 central boxes. As we can see from the following videos, the solutions are not mesh independent\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includemovie[poster,]{4cm}{4cm}{animation_piso_20_filteredLinear.mp4}
@@ -171,9 +174,10 @@ The filteredLinear scheme has also been used for the 200 mesh, as well as a even
 		\caption{$\mathbf{filteredLinear, 250-mesh}$}
  	\end{subfigure}
 \end{figure}
-\\
-I also found that the solver crashed if i used a too fine mesh with a too coarse time step. In the final calculations i have used timesteps of $1.0*10^{-5}$, but with a timestep of $1.0*10^{-4}$ the Courant number grew to between 1.5 and 2, at which the calculations crashed. This implies grid sensitivity with respect to grid size and time step size.\\
+
 \newpage
+I also found that the solver crashed if i used a too fine mesh with a too coarse time step. In the final calculations i have used timesteps of $1.0*10^{-5}$, but with a timestep of $1.0*10^{-4}$ the Courant number grew to between 1.5 and 2, at which the calculations crashed. This implies grid sensitivity with respect to grid size and time step size.\\
+\\
 Finally we have the mean velocity and mean pressure for the 100, 200- and 250-meshes (at time 0.5 s)\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.3\textwidth}
@@ -222,7 +226,7 @@ $\pdi{\ol{w}}{t} + \nabla\cdot(\ol{w}\vec{\ol{u}}) = -\frac{1}{\rho}\pdi{\ol{p}}
 Here the overline marks the mean terms, and the marked terms are the fluctuation terms. The last bracketed terms in each equation contain the so called Reynolds stresses.\\
 \\
 For the $k-\epsilon$ model, I have used the value for k that was used in the PitzDaily case, $k = 0.375$. This is because the inlet velocity is the same, and i have assumed that a similar turbulence intensity is appropriate. Analyzing the value for $\epsilon$ in the PitzDaily case, i found that they have used a value of 0.1 times the inlet opening for the turbulent length scale. I have adjusted my value for $\epsilon$ using the same ratio, giving $\epsilon = 7.547$.\\
-\newpage
+\\
 There are two additional equations to be solved for the $k-\epsilon$ model:\\
 \\
 $\pdi{\rho k}{t} + \nabla\cdot(\rho k \vec{u}) = \frac{\mu_t}{\sigma_k}\nabla^2k + 2\mu_t S_{ij}\cdot S_{ij} - \rho\epsilon$\\
@@ -240,28 +244,29 @@ The following figures show the mean velocity for the two mesh sizes:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_10_mean_u.png}
-		\caption{$\mathbf{ 100-mesh, k-\epsilon}$}
+		\caption{$\mathbf{100-mesh, k-\epsilon}$}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_20_mean_u.png}
-		\caption{$\mathbf{ 200-mesh, k-\epsilon}$}
+		\caption{$\mathbf{200-mesh, k-\epsilon}$}
 	\end{subfigure}
 \end{figure}
-\\
+
+\newpage
 And finally we have the mean kinematic energy:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_10_mean_k.png}
-		\caption{$\mathbf{ 100-mesh, k-\omega}$}
+		\caption{$\mathbf{100-mesh, k-\omega}$}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=0.95\linewidth]{simple_ke_20_mean_k.png}
-		\caption{$\mathbf{ 200-mesh, k-\omega}$}
+		\caption{$\mathbf{200-mesh, k-\omega}$}
 	\end{subfigure}
 \end{figure}
 \\
 We see that there is just a slight difference between the two cases, so there is little or no mesh sensitivity using simpleFoam for this RANS problem.\\
-\newpage
+\\
 For the $k-\omega$ model, i have used the fact that $\omega = \frac{\epsilon}{k}$, and used the values from the $k-\epsilon$ problem to calculate $\omega = 20.125$. We have two additional equations in this model as well:\\
 \\
 $\pdi{\rho k}{t} + \nabla\cdot(\rho k \vec{u}) = (\mu + \frac{\mu_t}{\sigma_k})\nabla^2k + P_k - \beta^*\rho k\omega\tab P_k = \left(2\mu_t S_{ij}\cdot S_{ij} - \frac{2}{3}\rho k\pdi{U_i}{x_j}\delta_{ij}\right)$\\
@@ -283,7 +288,8 @@ Running simpleFoam, we get the following plots for the converged values of the m
 		\caption{$\mathbf{ 200-mesh, k-\epsilon}$}
 	\end{subfigure}
 \end{figure}
-\\
+
+\newpage
 And for the mean kinematic energy:\\
 \begin{figure}[h!]
 	\begin{subfigure}{0.5\textwidth}
@@ -295,7 +301,6 @@ And for the mean kinematic energy:\\
 		\caption{$\mathbf{ 200-mesh, k-\omega}$}
 	\end{subfigure}
 \end{figure}
-\\
 \section*{4)}
 Since pimpleFoam is a large time-step solver, i would assume that some of the eddy information would be lost in a LES model if the pimpleFoam solver incorporates time step adjustments as I have found to appear in some of the pimpleFoam tutorial cases' controlDict files. As some of the eddies appear, travel and dissapear in very short amounts of time, this might not be picked up by the solver using larger than needed time steps.
 \section*{5)}
@@ -317,5 +322,5 @@ To compare the results from the LES and RANS calculations, i have plotted the st
 \end{figure}\\
 We can see that the location of the recirculation bubble is roughly the same for all three cases, but the bubble is longer for the$k-\epsilon$ than the $k-\omega$. The location in the LES case shifts through time (as can be seen in the above videos), as well as the generated "bubble" letting go and reappearing several times during the simulation. 
 \section*{6)}
-Since turbulence is a three-dimensional phenomenon.
+Since turbulence is a three-dimensional phenomenon, i would assume that 
  \end{document}
